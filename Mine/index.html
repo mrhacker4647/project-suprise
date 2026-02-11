@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎂 Birthday Login 🎂</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Floating decorations */
+      .floating-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .float-item {
+        position: absolute;
+        font-size: 30px;
+        animation: float 15s infinite ease-in-out;
+        opacity: 0.6;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Main Container */
+      .login-container {
+        position: relative;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        animation: slideIn 0.8s ease-out;
+        border: 3px solid rgba(255, 255, 255, 0.5);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px) scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .cake-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+        display: inline-block;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      h1 {
+        font-family: "Pacifico", cursive;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, #ff69b4, #ffd700, #ff1493);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1rem;
+      }
+
+      .input-group {
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      input[type="text"]:focus {
+        border-color: #ff69b4;
+        box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+      }
+
+      .date-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+
+      select {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      select:focus {
+        border-color: #ff69b4;
+        box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 18px;
+        border: none;
+        border-radius: 50px;
+        background: linear-gradient(45deg, #ff69b4, #ff1493);
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+      }
+
+      .btn-login:active {
+        transform: translateY(-1px);
+      }
+
+      .btn-login::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-login:hover::before {
+        left: 100%;
+      }
+
+      .btn-login:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Countdown Display - ENHANCED */
+      .countdown-container {
+        display: none;
+        margin-top: 30px;
+        padding: 30px 20px;
+        background: linear-gradient(135deg, #fff5f7, #ffe4e1);
+        border-radius: 20px;
+        border: 3px solid #ff69b4;
+        animation: fadeIn 0.5s ease;
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .countdown-title {
+        font-family: "Pacifico", cursive;
+        color: #ff1493;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+      }
+
+      .time-box {
+        background: white;
+        padding: 20px 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        min-width: 80px;
+        border: 2px solid #ffb6c1;
+        transition: transform 0.3s ease;
+      }
+
+      .time-box:hover {
+        transform: translateY(-5px);
+      }
+
+      .time-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ff1493;
+        display: block;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .time-label {
+        font-size: 0.85rem;
+        color: #666;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+
+      .countdown-message {
+        margin-top: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 15px;
+        border: 2px dashed #ff69b4;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .message {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 15px;
+        font-weight: 500;
+        display: none;
+        animation: shake 0.5s ease;
+        line-height: 1.5;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+
+      .message.error {
+        background: #ffe0e0;
+        color: #d32f2f;
+        border: 2px solid #ffcdd2;
+      }
+
+      .message.success {
+        background: #e8f5e9;
+        color: #388e3c;
+        border: 2px solid #c8e6c9;
+      }
+
+      .message.waiting {
+        background: #fff3e0;
+        color: #f57c00;
+        border: 2px solid #ffe0b2;
+      }
+
+      /* Auto redirect message */
+      .auto-redirect {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        border-radius: 15px;
+        border: 2px solid #4caf50;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+      }
+
+      .auto-redirect p {
+        color: #2e7d32;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: #a5d6a7;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: #4caf50;
+        width: 0%;
+        transition: width 3s linear;
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 30px 20px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .date-inputs {
+          grid-template-columns: 1fr;
+        }
+
+        .time-value {
+          font-size: 2rem;
+        }
+
+        .time-box {
+          min-width: 70px;
+          padding: 15px 10px;
+        }
+      }
+
+      /* Confetti for success */
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: #ff69b4;
+        pointer-events: none;
+        z-index: 9999;
+        animation: confetti-fall linear forwards;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-10px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* Live countdown animation */
+      .live-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: #4caf50;
+        border-radius: 50%;
+        margin-right: 8px;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Background -->
+    <div class="floating-bg" id="floatingBg"></div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+      <div class="cake-icon">🎂</div>
+      <h1>Birthday Login</h1>
+      <p class="subtitle">Enter your details to unlock your surprise! ✨</p>
+
+      <form id="birthdayForm">
+        <div class="input-group">
+          <label for="userName">Your Name 💝</label>
+          <input
+            type="text"
+            id="userName"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label>Your Birthday Date 🎈</label>
+          <div class="date-inputs">
+            <select id="day" required>
+              <option value="">Day</option>
+            </select>
+            <select id="month" required>
+              <option value="">Month</option>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+            <select id="year" required>
+              <option value="">Year</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="submitBtn">
+          🎉 Check My Birthday Surprise 🎉
+        </button>
+      </form>
+
+      <div class="message" id="message"></div>
+
+      <!-- Countdown Display - ENHANCED -->
+      <div class="countdown-container" id="countdownContainer">
+        <div class="countdown-title">
+          <span class="live-indicator"></span>⏰ Time Until Your Birthday ⏰
+        </div>
+        <div class="countdown-timer" id="countdownTimer">
+          <!-- Days will be inserted here dynamically if needed -->
+          <div class="time-box">
+            <span class="time-value" id="hours">00</span>
+            <span class="time-label">Hours</span>
+          </div>
+          <div class="time-box">
+            <span class="time-value" id="minutes">00</span>
+            <span class="time-label">Minutes</span>
+          </div>
+          <div class="time-box">
+            <span class="time-value" id="seconds">00</span>
+            <span class="time-label">Seconds</span>
+          </div>
+        </div>
+        <div class="countdown-message" id="countdownMessage">
+          Come back at exactly 12:00 AM to see your surprise! 🌟
+        </div>
+      </div>
+
+      <!-- Auto Redirect -->
+      <div class="auto-redirect" id="autoRedirect">
+        <p>🎊 It's time! Redirecting to your birthday surprise... 🎊</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Configuration
+      const CURRENT_YEAR = 2026;
+      const BIRTHDAY_PAGE = "main.html";
+      const FEB11_PAGE = "feb11.html";
+
+      // Populate days
+      const daySelect = document.getElementById("day");
+      for (let i = 1; i <= 31; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        daySelect.appendChild(option);
+      }
+
+      // Populate years (from 1990 to 2015)
+      const yearSelect = document.getElementById("year");
+      for (let i = 2015; i >= 1990; i--) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        yearSelect.appendChild(option);
+      }
+
+      // Create floating background elements
+      function createFloatingBg() {
+        const container = document.getElementById("floatingBg");
+        const emojis = [
+          "🎈",
+          "🎁",
+          "🎀",
+          "🌸",
+          "✨",
+          "🎂",
+          "🍰",
+          "🧁",
+          "🎊",
+          "🎉"
+        ];
+
+        for (let i = 0; i < 20; i++) {
+          const item = document.createElement("div");
+          item.className = "float-item";
+          item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          item.style.left = Math.random() * 100 + "%";
+          item.style.animationDelay = Math.random() * 15 + "s";
+          item.style.animationDuration = Math.random() * 10 + 10 + "s";
+          container.appendChild(item);
+        }
+      }
+
+      createFloatingBg();
+
+      function isSpecialName(name) {
+        const lowerName = name.toLowerCase();
+        return lowerName.includes("kha") || lowerName.includes("nure");
+      }
+
+      // Form submission
+      document
+        .getElementById("birthdayForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("userName").value.trim();
+          const enteredDay = parseInt(document.getElementById("day").value);
+          const enteredMonth = parseInt(document.getElementById("month").value);
+          const year = parseInt(document.getElementById("year").value);
+
+          const messageEl = document.getElementById("message");
+          const countdownContainer =
+            document.getElementById("countdownContainer");
+          const submitBtn = document.getElementById("submitBtn");
+
+          // Validate inputs
+          if (!name) {
+            showMessage("Please enter your name! 💕", "error");
+            return;
+          }
+
+          if (isNaN(enteredDay) || isNaN(enteredMonth) || isNaN(year)) {
+            showMessage(
+              "Please select your complete birthday date! 📅",
+              "error"
+            );
+            return;
+          }
+
+          // Get month names for display
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+          ];
+
+          // Check for special names (kha or nure)
+          const lowerName = name.toLowerCase();
+          const isSpecialName =
+            lowerName.includes("kha") || lowerName.includes("nure");
+
+          // If special name, check if they entered a different date than Feb 12
+          if (isSpecialName) {
+            // If they didn't enter February 12, show silly message
+            if (enteredDay !== 12 || enteredMonth !== 1) {
+              const sillyMessages = [
+                `🤔 Wait a minute ${name}... Are you SURE your birthday is ${monthNames[enteredMonth]} ${enteredDay}? We both know it's February 12! 😏`,
+                `🎭 Nice try ${name}! But your "real" birthday is February 12, isn't it? 😉`,
+                `🕵️ Hmm ${name}, ${monthNames[enteredMonth]} ${enteredDay}? I think someone's trying to trick me... We know it's Feb 12! 😄`,
+                `🤨 ${name}, ${monthNames[enteredMonth]} ${enteredDay}? Come on, we both know the truth... It's February 12! 🎂`,
+                `😏 Is this really your birthday date, ${name}? Or are you just testing me? Everyone knows it's Feb 12!`
+              ];
+
+              // Pick random silly message
+              const randomMsg = sillyMessages[Math.floor(Math.random() * sillyMessages.length)];
+              
+              showMessage(randomMsg + '<br><br>Let me fix that for you! 🎉', 'waiting');
+              
+              // Disable button during delay
+              submitBtn.disabled = true;
+              submitBtn.textContent = "🤔 Checking...";
+              
+             
+              setTimeout(() => {
+                // Force to Feb 12
+                document.getElementById("day").value = 12;
+                document.getElementById("month").value = 1;
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = "🎉 Check My Birthday Surprise 🎉";
+                
+                // Now proceed with Feb 12
+                proceedWithBirthdayLogic(name, 12, 1, year, true, monthNames);
+              }, 10000);
+              
+              return; // Stop here, will continue after timeout
+            }
+            
+            // If they already entered Feb 12, proceed normally
+            proceedWithBirthdayLogic(name, 12, 1, year, true, monthNames);
+            return;
+          }
+
+          // Regular user - check if they selected Feb 11
+          if (enteredMonth === 1 && enteredDay === 11) {
+            // February 11th - redirect to special page
+            window.location.href = FEB11_PAGE;
+            return;
+          }
+
+          // Regular user with other dates
+          proceedWithBirthdayLogic(name, enteredDay, enteredMonth, year, false, monthNames);
+        });
+
+      function proceedWithBirthdayLogic(name, day, month, year, isSpecialName, monthNames) {
+        const messageEl = document.getElementById("message");
+        const countdownContainer = document.getElementById("countdownContainer");
+        const submitBtn = document.getElementById("submitBtn");
+        
+        const monthName = monthNames[month];
+        
+        // Create the target birthday date for 2026
+        const targetBirthday = new Date(CURRENT_YEAR, month, day, 0, 0, 0);
+        const currentDate = new Date();
+
+        // Check if birthday has already passed in 2026
+        if (currentDate > targetBirthday) {
+          // Check if it's the same day (birthday today but after midnight)
+          const isSameDay =
+            currentDate.getDate() === day && currentDate.getMonth() === month;
+
+          if (isSameDay && currentDate.getHours() >= 0) {
+            // It's their birthday today!
+            // Only show success if it's Feb 12 AND special name
+            if (day === 12 && month === 1 && isSpecialName) {
+              showSuccess(name, true);
+            } else {
+              // Not the special case - show error
+              showMessage(
+                `Hey ${name}! Today is ${monthName} ${day}, but this surprise is not available! 🎂`,
+                "error"
+              );
+            }
+            return;
+          }
+
+          // Birthday has passed
+          const specialMessage = isSpecialName
+            ? `✨ Special surprise for ${name}! ✨<br>`
+            : "";
+          showMessage(
+            `${specialMessage}Hey ${name}! Your birthday on ${monthName} ${day} has already passed in 2026! 🎂 See you next year!`,
+            "error"
+          );
+          return;
+        }
+
+        // If it's before their birthday in 2026 - show countdown
+        if (currentDate < targetBirthday) {
+          // Show countdown container immediately
+          countdownContainer.style.display = "block";
+          document.querySelector(".countdown-title").innerHTML =
+            `<span class="live-indicator"></span>🎂 ${name}'s Birthday Countdown 🎂`;
+          submitBtn.disabled = true;
+          submitBtn.textContent = "⏳ Countdown Active...";
+
+          // Hide the form message since we'll show countdown instead
+          messageEl.style.display = "none";
+
+          // Start live countdown with target date
+          startBirthdayCountdown(
+            name,
+            targetBirthday,
+            monthName,
+            day,
+            isSpecialName
+          );
+          return;
+        }
+
+        // If it's exactly their birthday at or after midnight - SUCCESS!
+        // Only allow success for Feb 12 + special name combination
+        if (day === 12 && month === 1 && isSpecialName) {
+          showSuccess(name, true);
+        } else {
+          showMessage(
+            `Hey ${name}! This surprise is not available for your birthday date! 🎂`,
+            "error"
+          );
+        }
+      }
+
+      function showSuccess(name, isSpecial = false) {
+        const specialText = isSpecial
+          ? "✨ Special Birthday Surprise! ✨<br>"
+          : "";
+        showMessage(
+          `${specialText}🎉 Happy Birthday ${name}! Welcome to your special surprise! 🎉`,
+          "success"
+        );
+        createConfetti();
+
+        // Show auto redirect
+        document.getElementById("autoRedirect").style.display = "block";
+        document.getElementById("progressFill").style.width = "100%";
+
+        // Store user name in session storage for the birthday page
+        sessionStorage.setItem("birthdayPerson", name);
+        sessionStorage.setItem("isSpecialBirthday", isSpecial);
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          window.location.href = BIRTHDAY_PAGE;
+        }, 3000);
+      }
+
+      function showMessage(text, type) {
+        const messageEl = document.getElementById("message");
+        messageEl.innerHTML = text.replace(/\n/g, "<br>");
+        messageEl.className = "message " + type;
+        messageEl.style.display = "block";
+      }
+
+      function startBirthdayCountdown(
+        name,
+        targetDate,
+        monthName,
+        day,
+        isSpecial = false
+      ) {
+        const timer = setInterval(() => {
+          const now = new Date();
+          const diff = targetDate - now;
+
+          if (diff <= 0) {
+            clearInterval(timer);
+            const specialText = isSpecial ? "✨ Special time! ✨ " : "";
+            showMessage(
+              `🎉 ${specialText}It's time ${name}! Loading your surprise... 🎉`,
+              "success"
+            );
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+            return;
+          }
+
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          const hoursEl = document.getElementById("hours");
+          const minutesEl = document.getElementById("minutes");
+          const secondsEl = document.getElementById("seconds");
+          const timerContainer = document.getElementById("countdownTimer");
+          const countdownMessageEl =
+            document.getElementById("countdownMessage");
+
+          // Handle days display - FIXED ID CONFLICT
+          let daysBox = document.getElementById("daysBox");
+          if (days > 0) {
+            if (!daysBox) {
+              daysBox = document.createElement("div");
+              daysBox.className = "time-box";
+              daysBox.id = "daysBox";
+              daysBox.innerHTML = `
+                        <span class="time-value" id="daysValue">00</span>
+                        <span class="time-label">Days</span>
+                    `;
+              timerContainer.insertBefore(daysBox, timerContainer.firstChild);
+            }
+            const daysValueEl = document.getElementById("daysValue");
+            if (daysValueEl) {
+              daysValueEl.textContent = String(days).padStart(2, "0");
+            }
+          } else {
+            if (daysBox) {
+              daysBox.remove();
+            }
+          }
+
+          // Update time values with padding
+          hoursEl.textContent = String(hours).padStart(2, "0");
+          minutesEl.textContent = String(minutes).padStart(2, "0");
+          secondsEl.textContent = String(seconds).padStart(2, "0");
+
+          // Update countdown message text
+          let timeMessage = "";
+          if (days > 0) {
+            timeMessage = `${days} day${days !== 1 ? "s" : ""}, ${hours} hour${hours !== 1 ? "s" : ""}, ${minutes} minute${minutes !== 1 ? "s" : ""}`;
+          } else if (hours > 0) {
+            timeMessage = `${hours} hour${hours !== 1 ? "s" : ""}, ${minutes} minute${minutes !== 1 ? "s" : ""}, ${seconds} second${seconds !== 1 ? "s" : ""}`;
+          } else if (minutes > 0) {
+            timeMessage = `${minutes} minute${minutes !== 1 ? "s" : ""} and ${seconds} second${seconds !== 1 ? "s" : ""}`;
+          } else {
+            timeMessage = `${seconds} second${seconds !== 1 ? "s" : ""}`;
+          }
+
+          const specialMessage = isSpecial
+            ? `✨ Special surprise for ${name}! ✨<br>`
+            : "";
+          countdownMessageEl.innerHTML = `${specialMessage}Hey ${name}! 🎂 Your birthday surprise will unlock on ${monthName} ${day}, ${CURRENT_YEAR} at 12:00 AM! ⏰<br><br>Come back in: <strong>${timeMessage}</strong> 🎉`;
+        }, 1000);
+      }
+
+      function createConfetti() {
+        const colors = [
+          "#ff69b4",
+          "#ffd700",
+          "#ff1493",
+          "#00ced1",
+          "#fff",
+          "#9370db"
+        ];
+
+        for (let i = 0; i < 100; i++) {
+          setTimeout(() => {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = "-10px";
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = Math.random() * 10 + 5 + "px";
+            confetti.style.height = confetti.style.width;
+            confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 5000);
+          }, i * 20);
+        }
+      }
+
+      window.addEventListener("load", () => {
+        const savedName = sessionStorage.getItem("birthdayPerson");
+        if (savedName) {
+          // Could auto-fill or show welcome back message
+        }
+      });
+    </script>
+  </body>
+</html>
